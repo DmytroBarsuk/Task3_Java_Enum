@@ -6,10 +6,13 @@ import java.util.Map;
 class Curriculum {
 
     private String nameOfCurriculum;
+    private HashMap<String,Integer> listOfCourses;
     private int amountDuration;
-    private HashMap<String,Integer> listOfCourses = new HashMap<>();
+
     public Curriculum(String nameOfCurriculum){
         this.nameOfCurriculum = nameOfCurriculum;
+        listOfCourses = new HashMap<>();
+        amountDuration = 0;
     }
 
     public String getNameOfCurriculum() {
@@ -29,7 +32,10 @@ class Curriculum {
     }
 
     public int getAmountDuration(){
-        return 0;
+        for(Map.Entry<String, Integer> item : listOfCourses.entrySet()){
+            amountDuration += item.getValue();
+        }
+        return amountDuration;
     }
 
 

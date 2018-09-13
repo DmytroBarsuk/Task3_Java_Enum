@@ -1,6 +1,7 @@
 import com.epam.dmytro_barsuk.java.lk6_string_enum_number.task1.sudent_info.Student;
 
 import java.text.ParseException;
+import java.util.Calendar;
 
 public class Program {
     public static void main(String[] args) throws ParseException {
@@ -8,5 +9,7 @@ public class Program {
         st1.addTopic("Основы Java", 15);
         st1.addTopic("Java Selenium", 8);
         st1.printFullInfo();
+
+
     }
 }

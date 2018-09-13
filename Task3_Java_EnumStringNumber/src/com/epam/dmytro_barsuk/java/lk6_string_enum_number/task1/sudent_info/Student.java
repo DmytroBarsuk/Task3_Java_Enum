@@ -9,10 +9,20 @@ import java.util.Date;
 public class Student {
     private String firstName;
     private String lastName;
+
     private Curriculum course;
-    private Date startDate;
-    private Date endDate;
-  //  final public Calendar calendar = Calendar.getInstance();
+    /**
+     * Start Date of studying
+     */
+    private Calendar startDate;
+    /**
+     * End date of studying
+     */
+    private Calendar endDate;
+
+
+    final private int START_STUDY_TIME = 10;
+    final private int END_STUDY_TIME = 18;
 
     DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
     DateFormat hourseFormat = new SimpleDateFormat("HH");
@@ -21,17 +31,18 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         course = new Curriculum(nameOfCurriculum);
-        this.startDate = dateFormat.parse(startDate);
-
+        this.startDate = Calendar.getInstance();
+        this.startDate.setTime(dateFormat.parse(startDate));
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-   /* public Date getEndDate(){
+    public Date getEndDate(){
 
-    }*/
+    return null;
+    }
 
     public String getLastName() {
         return lastName;
@@ -51,8 +62,8 @@ public class Student {
     public void printFullInfo(){
         System.out.println("STUDENT: "+ firstName + " " + lastName);
         System.out.println("CURRICULUM: " + course.getNameOfCurriculum());
-        System.out.println("START DATE: " + startDate);
-
+        System.out.println("START DATE: " + startDate.getTime());
+        System.out.println("END DATE: " + course.getAmountDuration());
         course.printListOfCourses();
     }
     @Override
