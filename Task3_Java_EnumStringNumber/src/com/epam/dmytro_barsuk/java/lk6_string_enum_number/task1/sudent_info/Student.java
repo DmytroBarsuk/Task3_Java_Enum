@@ -1,10 +1,8 @@
 package com.epam.dmytro_barsuk.java.lk6_string_enum_number.task1.sudent_info;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Student {
     private String firstName;
@@ -14,34 +12,39 @@ public class Student {
     /**
      * Start Date of studying
      */
-    private Calendar startDate;
+    private LocalDateTime startDate;
     /**
      * End date of studying
      */
-    private Calendar endDate;
+    private LocalDateTime endDate;
 
 
     final private int START_STUDY_TIME = 10;
     final private int END_STUDY_TIME = 18;
+    final private int STUDY_TIME = 8;
 
-    DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-    DateFormat hourseFormat = new SimpleDateFormat("HH");
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d.MM.yyyy HH:mm");
 
     public Student(String firstName, String lastName, String nameOfCurriculum, String startDate) throws ParseException {
         this.firstName = firstName;
         this.lastName = lastName;
         course = new Curriculum(nameOfCurriculum);
-        this.startDate = Calendar.getInstance();
-        this.startDate.setTime(dateFormat.parse(startDate));
+        this.startDate =LocalDateTime.parse(startDate, dateFormat); //LocalDateTime.of(year, month, day,START_STUDY_TIME,0);
+        endDate = this.startDate;
     }
 
+    /**
+     * ==================================Getters & Setters=============================================================
+     */
     public String getFirstName() {
         return firstName;
     }
 
-    public Date getEndDate(){
-
-    return null;
+    public LocalDateTime getStartDate(){
+        return startDate;
+    }
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
     public String getLastName() {
@@ -51,21 +54,34 @@ public class Student {
     public Curriculum getCourse() {
         return course;
     }
+
+    public void setEndDate() {
+        endDate = endDate.plusDays(course.totalDurationDay());
+        endDate = endDate.plusHours(course.totalDurationHours());
+    }
+
+    /**
+     * =================================================================================================================
+     */
+
     public void addTopic(String nameOfTopic, Integer duration) {
-        if(duration > 0) {
+        if (duration > 0) {
             course.getListOfCourses().put(nameOfTopic, duration);
-        }
-        else{
+            course.plusAmountDuration(duration);
+        } else {
             System.out.println("Время не может быть меньше 0!");
         }
     }
-    public void printFullInfo(){
-        System.out.println("STUDENT: "+ firstName + " " + lastName);
+
+    public void printFullInfo() {
+        System.out.println("STUDENT: " + firstName + " " + lastName);
         System.out.println("CURRICULUM: " + course.getNameOfCurriculum());
-        System.out.println("START DATE: " + startDate.getTime());
-        System.out.println("END DATE: " + course.getAmountDuration());
+        System.out.println("START DATE: " + startDate.format(dateFormat));
+        System.out.println("END DATE: "+ getEndDate().format(dateFormat));
         course.printListOfCourses();
+
     }
+
     @Override
     public String toString() {
         return firstName + " " + lastName + "\n";

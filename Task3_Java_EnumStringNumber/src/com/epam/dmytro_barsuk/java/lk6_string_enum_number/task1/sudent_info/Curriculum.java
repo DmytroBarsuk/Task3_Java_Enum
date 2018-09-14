@@ -6,10 +6,12 @@ import java.util.Map;
 class Curriculum {
 
     private String nameOfCurriculum;
-    private HashMap<String,Integer> listOfCourses;
+    private HashMap<String, Integer> listOfCourses;
     private int amountDuration;
 
-    public Curriculum(String nameOfCurriculum){
+    final private int STUDY_TIME = 8;
+
+    public Curriculum(String nameOfCurriculum) {
         this.nameOfCurriculum = nameOfCurriculum;
         listOfCourses = new HashMap<>();
         amountDuration = 0;
@@ -18,25 +20,35 @@ class Curriculum {
     public String getNameOfCurriculum() {
         return nameOfCurriculum;
     }
-    public HashMap<String,Integer> getListOfCourses() {
-        return listOfCourses;
-        }
 
-    public void printListOfCourses(){
+    public HashMap<String, Integer> getListOfCourses() {
+        return listOfCourses;
+    }
+
+    public void printListOfCourses() {
         System.out.println("Course");
-        for(Map.Entry<String, Integer> item : listOfCourses.entrySet()) {
+        for (Map.Entry<String, Integer> item : listOfCourses.entrySet()) {
             String nameOfCourse = item.getKey();
             int duration = item.getValue();
             System.out.println(nameOfCourse + "\t\t" + duration);
         }
     }
 
-    public int getAmountDuration(){
-        for(Map.Entry<String, Integer> item : listOfCourses.entrySet()){
-            amountDuration += item.getValue();
-        }
+    public int getAmountDuration() {
         return amountDuration;
     }
+    public void plusAmountDuration(int duration){
+        amountDuration += duration;
+    }
+
+    public int totalDurationDay() {
+        return amountDuration / STUDY_TIME;
+    }
+
+    public int totalDurationHours() {
+        return amountDuration % STUDY_TIME;
+    }
+
 
 
 /*    @Override
