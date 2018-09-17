@@ -9,6 +9,6 @@ public class Program {
         calculator.startApplication();*/
 
         StringCalculator calculator = new StringCalculator();
-        System.out.println(calculator.add());
+        calculator.add();
     }
 }
